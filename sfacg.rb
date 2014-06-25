@@ -45,9 +45,6 @@ class Comic
     @comic_name = url[/\/([^\/]*)\/?$/, 1]
   end
 
-  def download chapter_name
-  end
-
   def download_all
     doc = Nokogiri::HTML(Net::HTTP.get(@uri))
     doc.css('ul.serialise_list.Blue_link2 li>a').each do |link|

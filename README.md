@@ -1,0 +1,1 @@
+Comic downloader for http://comic.sfacg.com
