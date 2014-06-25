@@ -31,8 +31,11 @@ class Chapter
         file_name = "#{i}#{File.extname(img_uri.to_s)}"
         file_path = File.join(to, file_name)
         begin
-          File.write file_path, Net::HTTP.get(img_uri)
-          puts "#{img_uri} -> #{file_path}"
+          Net::HTTP.start(img_uri.host, img_uri.port, read_timeout: 5) do |http|
+            response = http.request(Net::HTTP::Get.new(img_uri))
+            File.write file_path, response.body
+            puts "#{img_uri} -> #{file_path}"
+          end
         rescue => e
           puts "#{e} #{e.message} #{img_uri} -> #{file_path}"
         end
@@ -58,5 +61,5 @@ class Comic
   end
 end
 
-# Chapter.new('http://comic.sfacg.com/HTML/OnePiece/511/').download
-Comic.new('http://comic.sfacg.com/HTML/OnePiece/').download_all to: '/Users/tonytonyjan/Pictures'
+# Chapter.new('http://comic.sfacg.com/HTML/OnePiece/748/').download
+# Comic.new('http://comic.sfacg.com/HTML/OnePiece/').download_all to: '/Users/tonytonyjan/Pictures'
