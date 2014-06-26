@@ -51,7 +51,7 @@ class Comic
     @comic_name = url[/\/([^\/]*)\/?$/, 1]
   end
 
-  def download_all to: '.'
+  def download to: '.'
     doc = Nokogiri::HTML(Net::HTTP.get(@uri))
     doc.css('ul.serialise_list.Blue_link2 li>a').each do |link|
       chapter_uri = URI.join(@uri, link['href'])
@@ -61,5 +61,4 @@ class Comic
   end
 end
 
-# Chapter.new('http://comic.sfacg.com/HTML/OnePiece/748/').download
-# Comic.new('http://comic.sfacg.com/HTML/OnePiece/').download_all to: '/Users/tonytonyjan/Pictures'
+Comic.new(ARGV[0]).download
