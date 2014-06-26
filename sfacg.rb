@@ -61,4 +61,4 @@ class Comic
   end
 end
 
-Comic.new(ARGV[0]).download
+Comic.new(ARGV[0]).download if __FILE__ == $0
