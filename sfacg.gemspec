@@ -3,7 +3,7 @@ require 'sfacg/version'
 
 Gem::Specification.new do |s|
   s.name        = 'sfacg'
-  s.version     = sfacg::VERSION
+  s.version     = Sfacg::VERSION
   s.licenses    = ['MIT']
   s.summary     = 'sfacg comic downloader'
   s.description = 'sfacg comic downloader'
