@@ -42,7 +42,7 @@ module Sfacg
           end
         }
       end
-      threads.each &:join
+      threads.each(&:join)
     end
   end
 end
