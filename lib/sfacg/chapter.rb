@@ -1,5 +1,5 @@
 require 'nokogiri'
-require 'net/http'
+require 'open-uri'
 require 'therubyracer'
 require 'fileutils'
 
@@ -11,15 +11,15 @@ module Sfacg
 
     def js_uri
       return @js_uri if @js_uri
-      chapter = @uri.to_s[/\/([^\/]*)\/?$/, 1]
-      doc = Nokogiri::HTML(Net::HTTP.get(@uri))
-      @js_uri = URI.join(@uri, doc.at_css("script[src*=\"#{chapter}.js\"]")['src'])
+      chapter_number = @uri.to_s[/\/([^\/]*)\/?$/, 1]
+      doc = Nokogiri::HTML(open(@uri))
+      @js_uri = @uri.merge(doc.at_css("script[src*=\"#{chapter_number}.js\"]")['src'])
     end
 
     def images
       return @images if @images
       cxt = V8::Context.new
-      cxt.eval(Net::HTTP.get(js_uri))
+      cxt.eval(open(js_uri))
       @hosts = cxt['hosts']
       @images = cxt['picAy'].map{|path| URI.join(@hosts.first, path)}
     end

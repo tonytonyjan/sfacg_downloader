@@ -6,9 +6,7 @@ describe Sfacg::Chapter do
   end
 
   it '#js_uri' do
-    uri = @chapter.js_uri
-    expect(uri).to be_a URI
-    expect(uri.to_s).to eql 'http://comic.sfacg.com/Utility/2/757.js'
+    expect(@chapter.js_uri.to_s).to eql 'http://comic.sfacg.com/Utility/2/757.js'
   end
 
   it '#images' do
