@@ -1,6 +1,5 @@
 require 'nokogiri'
 require 'open-uri'
-require 'therubyracer'
 require 'fileutils'
 
 module Sfacg
@@ -18,10 +17,9 @@ module Sfacg
 
     def images
       return @images if @images
-      cxt = V8::Context.new
-      cxt.eval(open(js_uri))
-      @hosts = cxt['hosts']
-      @images = cxt['picAy'].map{|path| URI.join(@hosts.first, path)}
+      js = open(js_uri).read
+      @hosts = js[/hosts\s*=\s*\[([^\]]*)\]/, 1].gsub(/[\s"']/, '').split(',')
+      @images = js.scan(/picAy\[\d+\]\s*=\s*"([^"]*)"/).map{|pattern| URI.join(@hosts.first, pattern.first)}
     end
 
     def download to: '.'
