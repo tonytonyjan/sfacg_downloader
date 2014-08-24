@@ -6,8 +6,9 @@ module Sfacg
       @comic_name = url[/\/([^\/]*)\/?$/, 1]
     end
 
-    def download to: '.'
-      doc = Nokogiri::HTML(Net::HTTP.get(@uri))
+    def download options = {to: '.'}
+      to = options[:to]
+      doc = Nokogiri::HTML(open(@uri))
       doc.css('ul.serialise_list.Blue_link2 li>a').each do |link|
         chapter_uri = URI.join(@uri, link['href'])
         chapter_name = File.basename(chapter_uri.to_s)

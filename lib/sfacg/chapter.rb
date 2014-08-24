@@ -22,7 +22,8 @@ module Sfacg
       @images = js.scan(/picAy\[\d+\]\s*=\s*"([^"]*)"/).map{|pattern| URI.join(@hosts.first, pattern.first)}
     end
 
-    def download to: '.'
+    def download options = {to: '.'}
+      to = options[:to]
       FileUtils::mkdir_p to
       threads = []
       images.each_with_index do |img_uri, i|
@@ -31,12 +32,11 @@ module Sfacg
           file_path = File.join(to, file_name)
           begin
             Net::HTTP.start(img_uri.host, img_uri.port, read_timeout: 5) do |http|
-              response = http.request(Net::HTTP::Get.new(img_uri))
-              File.write file_path, response.body
+              File.write file_path, open(img_uri).read, mode: 'wb'
               puts "#{img_uri} -> #{file_path}"
             end
           rescue => e
-            puts "#{e} #{e.message} #{img_uri} -> #{file_path}"
+            puts "#{e} #{e.message} #{img_uri} -> #{file_path}", e.backtrace
           end
         }
       end
