@@ -36,11 +36,13 @@ module Sfacg
               puts "#{img_uri} -> #{file_path}"
             end
           rescue => e
-            puts "#{e} #{e.message} #{img_uri} -> #{file_path}", e.backtrace
+            $stderr.puts "#{img_uri} -> #{file_path}", $!, $@.join($/)
           end
         }
       end
       threads.each(&:join)
+    rescue
+      $stderr.puts $!, $@.join($/)
     end
   end
 end
