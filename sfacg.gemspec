@@ -13,5 +13,5 @@ Gem::Specification.new do |s|
   s.executables = 'sfacg'
   s.homepage    = 'https://github.com/tonytonyjan/sfacg'
   s.add_runtime_dependency 'thor', '~> 0'
-  s.add_runtime_dependency 'nokogiri', '~> 0'
+  s.add_runtime_dependency 'nokogiri', '~> 1.6'
 end
