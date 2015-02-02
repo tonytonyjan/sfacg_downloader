@@ -6,6 +6,7 @@ module Sfacg
   class Chapter
     def initialize url
       @uri = URI(url)
+      @js_uri = @images = nil
     end
 
     def js_uri
