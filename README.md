@@ -1,5 +1,7 @@
 Comic Downloader for http://comic.sfacg.com
 
+[![Build Status](https://travis-ci.org/tonytonyjan/sfacg_downloader.svg?branch=master)](https://travis-ci.org/tonytonyjan/sfacg_downloader)
+
 Installation
 ==========
 
