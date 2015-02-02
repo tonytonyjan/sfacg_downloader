@@ -35,7 +35,7 @@ module Sfacg
               File.write file_path, open(img_uri).read, mode: 'wb'
               puts "#{img_uri} -> #{file_path}"
             end
-          rescue => e
+          rescue
             $stderr.puts "#{img_uri} -> #{file_path}", $!.inspect, $@
           end
         }
