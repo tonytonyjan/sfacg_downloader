@@ -4,6 +4,7 @@ require 'fileutils'
 
 module Sfacg
   class Chapter
+    SF_HOST = 'http://hotpic.sfacg.com/'.freeze
     def initialize url
       @uri = URI(url)
       @js_uri = @images = nil
@@ -33,7 +34,7 @@ module Sfacg
           file_path = File.join(to, file_name)
           begin
             Net::HTTP.start(img_uri.host, img_uri.port, read_timeout: 5) do |http|
-              File.write file_path, open(img_uri).read, mode: 'wb'
+              File.write file_path, open(img_uri, 'Referer' => SF_HOST).read, mode: 'wb'
               puts "#{img_uri} -> #{file_path}"
             end
           rescue
