@@ -2,7 +2,7 @@
 require 'nokogiri'
 require 'open-uri'
 require 'fileutils'
-require 'english'
+require 'English'
 
 module Sfacg
   class Chapter #:nodoc:
