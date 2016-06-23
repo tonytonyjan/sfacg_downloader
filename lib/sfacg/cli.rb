@@ -1,16 +1,17 @@
+# frozen_string_literal: true
 require 'sfacg'
 require 'sfacg/version'
 require 'thor'
 
 module Sfacg
-  class Cli < Thor
+  class Cli < Thor #:nodoc:
     desc 'comic URL', 'Download a comic'
     long_desc <<-EOS
       Download a comic:
       \x5 $ sfacg chapter http://comic.sfacg.com/HTML/JJDJR/ --to /tmp
     EOS
     option :to, default: '.', banner: '<dir>', desc: 'Where to save.'
-    def comic url
+    def comic(url)
       Comic.new(url).download to: options[:to]
     end
 
@@ -20,7 +21,7 @@ module Sfacg
       \x5 $ sfacg chapter http://comic.sfacg.com/HTML/JJDJR/056/ --to /tmp
     EOS
     option :to, default: '.', banner: '<dir>', desc: 'Where to save.'
-    def chapter url
+    def chapter(url)
       Chapter.new(url).download to: options[:to]
     end
 
