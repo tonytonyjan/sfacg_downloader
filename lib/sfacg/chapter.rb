@@ -6,7 +6,7 @@ require 'English'
 
 module Sfacg
   class Chapter #:nodoc:
-    SF_HOST = 'http://hotpic.sfacg.com/'.freeze
+    SF_HOST = 'http://hotpic.sfacg.com/'
 
     def initialize(url)
       @uri = URI(url)
@@ -20,7 +20,7 @@ module Sfacg
       @js_uri ||= (
         doc = Nokogiri::HTML(open(@uri))
         script = doc.at_css("script[src*=\"#{chapter_number}.js\"]")
-        @uri.merge(script['src'.freeze])
+        @uri.merge(script['src'])
       )
     end
 
@@ -29,8 +29,8 @@ module Sfacg
     end
 
     def hosts
-      @hosts ||= js[/hosts\s*=\s*\[([^\]]*)\]/, 1].gsub(/[\s"']/, ''.freeze)
-                                                  .split(','.freeze)
+      @hosts ||= js[/hosts\s*=\s*\[([^\]]*)\]/, 1].gsub(/[\s"']/, '')
+                                                  .split(',')
     end
 
     def images

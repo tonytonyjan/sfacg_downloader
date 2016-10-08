@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'sfacg/chapter'
 module Sfacg
   class Comic #:nodoc:
